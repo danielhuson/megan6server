@@ -27,6 +27,11 @@ hs_err_pid*
 *.out
 *.toc
 
+#gradle
+gradlebuild/standalone/.gradle
+gradlebuild/war/.gradle
+
+
 # antbuild:
 antbuild/*.jar
 antbuild/*rename*

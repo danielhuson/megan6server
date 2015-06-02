@@ -1,0 +1,1 @@
+java -jar ../lib/ServerStarter.jar ../properties/ ../lib/MeganServer.war

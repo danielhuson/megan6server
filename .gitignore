@@ -1,4 +1,5 @@
 # Class files
+build/
 class/
 *.class
 
@@ -8,6 +9,10 @@ hs_err_pid*
 # intellij 
 *.iml
 .idea
+#eclipse
+.settings
+.classpath
+.project
 
 # MacOS
 .DS_Store
@@ -28,3 +33,4 @@ antbuild/*rename*
 antbuild/*shrink*
 antbuild/src/
 antbuild/classes/
+/build/

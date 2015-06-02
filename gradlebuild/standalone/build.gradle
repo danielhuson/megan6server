@@ -1,0 +1,34 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'jetty'
+ 
+war {
+  baseName = 'MeganServer'
+  archiveName = 'MeganServer.war'
+  version='0.3'
+  webInf { from '../../WebContent/WEB-INF/' }
+  webXml = file('../../WebContent/WEB-INF/web.xml')
+}
+ 
+// Uses JDK 7
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+ 
+sourceSets {
+    main {
+        java {
+            srcDir '../../src/'
+        }
+    }
+}
+
+repositories {
+
+}
+ 
+//Project dependencies
+dependencies {
+	compile fileTree(dir: '../../jars', include: ['*.jar'])
+}
+
+

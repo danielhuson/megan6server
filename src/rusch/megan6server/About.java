@@ -1,4 +1,4 @@
-package rusch.megan5server;
+package rusch.megan6server;
 
 
 /**Simple about class

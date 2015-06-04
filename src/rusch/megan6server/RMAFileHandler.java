@@ -1,4 +1,4 @@
-package rusch.megan5server;
+package rusch.megan6server;
 
 import megan.data.IConnector;
 import megan.rma2.RMA2Connector;

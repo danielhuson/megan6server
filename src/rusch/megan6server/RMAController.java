@@ -1,4 +1,4 @@
-package rusch.megan5server;
+package rusch.megan6server;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,8 +34,8 @@ import rusch.megan5client.RMADataset;
 import rusch.megan5client.ReadBlockServer;
 import rusch.megan5client.connector.RMAControllerMappings;
 import rusch.megan5client.connector.ReadBlockPage;
-import rusch.megan5server.cache.AuxiliaryCache;
-import rusch.megan5server.pagination.PageManager;
+import rusch.megan6server.cache.AuxiliaryCache;
+import rusch.megan6server.pagination.PageManager;
 
 /**The main class of the Megan5Server. Contains all mapping information and allows one to contact RMA files.
  * 

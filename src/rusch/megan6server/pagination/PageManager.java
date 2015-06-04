@@ -1,4 +1,4 @@
-package rusch.megan5server.pagination;
+package rusch.megan6server.pagination;
 
 import java.io.IOException;
 import java.util.ArrayList;

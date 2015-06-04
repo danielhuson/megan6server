@@ -1,4 +1,4 @@
-package rusch.megan5server;
+package rusch.megan6server;
 
 
 /**A single parameter that comes with a http request

@@ -1,4 +1,4 @@
-package rusch.megan5server.cache;
+package rusch.megan6server.cache;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import megan.data.IConnector;
-import rusch.megan5server.RMAFileHandler;
+import rusch.megan6server.RMAFileHandler;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;

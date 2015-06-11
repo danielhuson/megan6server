@@ -37,7 +37,7 @@ import rusch.megan5client.connector.ReadBlockPage;
 import rusch.megan6server.cache.AuxiliaryCache;
 import rusch.megan6server.pagination.PageManager;
 
-/**The main class of the Megan5Server. Contains all mapping information and allows one to contact RMA files.
+/**The main class of the Megan6Server. Contains all mapping information and allows one to contact RMA files.
  * 
  * 
  * 

@@ -23,7 +23,7 @@
 
 	<filter>
 		<filter-name>LoggingFilter</filter-name>
-		<filter-class>rusch.megan5server.LoggingFilter</filter-class>
+		<filter-class>rusch.megan6server.LoggingFilter</filter-class>
 	</filter>
 
 	<filter-mapping>

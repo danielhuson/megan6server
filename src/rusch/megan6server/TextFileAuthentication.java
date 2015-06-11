@@ -41,7 +41,7 @@ public class TextFileAuthentication implements UserDetailsManager{
 	public TextFileAuthentication() throws IOException{
 		URL url= this.getClass().getResource("/credentials.txt");
 		if(url==null)
-			this.getClass().getResource("megan5server/credentials.txt");
+			this.getClass().getResource("megan6server/credentials.txt");
 
         if(url==null)
 			throw new RuntimeException("File not found in path: credentials.txt");

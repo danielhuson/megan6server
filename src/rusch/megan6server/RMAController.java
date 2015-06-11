@@ -58,9 +58,8 @@ public class RMAController {
 		this.pageManager = new PageManager();
 		this.cache = new AuxiliaryCache();
 	}
-
 	@RequestMapping(value = RMAControllerMappings.GET_UID_MAPPING, method = RequestMethod.GET)
-	public @ResponseBody long getUid(@RequestParam(value="fileId", required=true) String fileId) throws FileNotFoundException{
+	public  @ResponseBody long getUid( @RequestParam(value="fileId", required=true) String fileId) throws FileNotFoundException{
 		return (long) rma3FileHandler.resolveFileIdentifierToId(fileId);
 	}
 
@@ -221,6 +220,8 @@ public class RMAController {
 
 	@RequestMapping(value={"", "/", "help"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Map<String, Object>> help() throws IOException{
+		Map<String, Map<String, Object>> requests = RMAControllerMappings.REQUESTS;
+		requests.put(RMAControllerMappings.UPDATE_DATASETS_MAPPING, RMAControllerMappings.UPDATE_DATASETS_REQUEST);
 		return RMAControllerMappings.REQUESTS;
 	}
 

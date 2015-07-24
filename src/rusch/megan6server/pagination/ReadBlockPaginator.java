@@ -76,7 +76,7 @@ public class ReadBlockPaginator {
 			return new ReadBlockPage();
 		}else{
 			List<ReadBlockServer> rbs = new ArrayList<ReadBlockServer>();
-			String code = String.valueOf((String.valueOf(Math.abs((rbs.hashCode() + System.currentTimeMillis() + "MySaltIsMyNameMEGAN5Server").hashCode()))));
+			String code = String.valueOf((String.valueOf(Math.abs((rbs.hashCode() + System.currentTimeMillis() + "MySaltIsMyNameMEGANServer").hashCode()))));
 			int pos = 0;
 			while(iterator.hasNext()){
 				pos++;

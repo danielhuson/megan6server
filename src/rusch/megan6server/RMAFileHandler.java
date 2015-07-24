@@ -81,13 +81,13 @@ public class RMAFileHandler {
 	 */
 	protected synchronized void updateFilesystem() throws IOException{
 		Properties prop = new Properties();
-		InputStream input = this.getClass().getClassLoader().getResourceAsStream("megan5server.properties");
+		InputStream input = this.getClass().getClassLoader().getResourceAsStream("meganserver.properties");
 		if(input == null){
-			input = this.getClass().getClassLoader().getResourceAsStream("/megan5server.properties");
+			input = this.getClass().getClassLoader().getResourceAsStream("/meganserver.properties");
 		}
 
 		if(input==null)
-			throw new RuntimeException("File not found in path: megan5server.properties");
+			throw new RuntimeException("File not found in path: meganserver.properties");
 
 		prop.load(input);
 		String rootFolder = prop.getProperty("rma.rootFolder");
@@ -144,7 +144,7 @@ public class RMAFileHandler {
 						fileType = FILETYPE.RMA6_FILE;
 				}
 				if (fileType == null) {
-					logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
+					//logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
 				} else {
 					id2FileType.put(id, fileType);
 					id2FileName.put(id, rmafile);

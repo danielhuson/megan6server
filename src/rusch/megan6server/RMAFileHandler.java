@@ -1,18 +1,26 @@
 package rusch.megan6server;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+
 import megan.data.IConnector;
 import megan.rma2.RMA2Connector;
 import megan.rma2.RMA2File;
 import megan.rma3.RMA3Connector;
-import megan.rma3.RMAFileFilter;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
-import rusch.megan5client.RMADataset;
 
-import java.io.*;
-import java.util.*;
-import java.util.Map.Entry;
+import rusch.megan5client.RMADataset;
 
 /**
  * 
@@ -27,7 +35,7 @@ public class RMAFileHandler {
 	private File rootDirectory;
 	private final Map<Integer, String> id2FileName;
 	private final Map<Integer, FILETYPE> id2FileType;
-	public static enum FILETYPE {RMA2_FILE, RMA3_FILE};
+	public static enum FILETYPE {RMA2_FILE, RMA3_FILE, RMA6_FILE};
 	private static final Logger logger = LoggerFactory.getLogger(RMAFileHandler.class);
 
 	/**Constructor
@@ -45,7 +53,7 @@ public class RMAFileHandler {
 
 
 	/**
-     * Update the files which are there.
+	 * Update the files which are there.
 	 * 
 	 * TODO this should probably happen either on trigger command, or should watch if there are changes, or every once in a while
 	 * @throws IOException 
@@ -59,8 +67,8 @@ public class RMAFileHandler {
 			input = this.getClass().getClassLoader().getResourceAsStream("/megan5server.properties");
 		}
 
-        if(input==null)
-            throw new RuntimeException("File not found in path: megan5server.properties");
+		if(input==null)
+			throw new RuntimeException("File not found in path: megan5server.properties");
 
 		prop.load(input);
 		String rootFolder = prop.getProperty("rma.rootFolder");
@@ -88,9 +96,9 @@ public class RMAFileHandler {
 		while(!folders.isEmpty()){
 			for(String file : folders.get(0).list()){
 				String file2 = folders.get(0) + File.separator + file;
-				if(RMAFileFilter.getInstance().accept(new File(file2)) && !file.endsWith(".rmaz")){
-					rmafiles.add(file2);
-				}
+				//				if(RMAFileFilter.getInstance().accept(new File(file2)) && !file.endsWith(".rmaz")){ The new RMAFileFilter doesnt support this.. so lets skip
+				rmafiles.add(file2); 
+				//				}
 				File f = new File(file2);
 				if(f.isDirectory()){
 					if(f.canRead()){
@@ -98,29 +106,33 @@ public class RMAFileHandler {
 					}
 				}
 			}
-            for (String rmafile : rmafiles) {
-                int id = Math.abs(rmafile.hashCode());
-                id2FileName.put(id, rmafile);
-                FILETYPE type = null;
-                if (rmafile.toLowerCase().endsWith(".rma2")) {
-                    type = FILETYPE.RMA2_FILE;
-                }
-                if (rmafile.toLowerCase().endsWith(".rma3")) {
-                    type = FILETYPE.RMA3_FILE;
-                }
-                if (rmafile.toLowerCase().endsWith(".rma")) {
-                    int version = RMA2File.getRMAVersion(new File(rmafile));
-                    if (version == 2)
-                        type = FILETYPE.RMA2_FILE;
-                    else if (version == 3)
-                        type = FILETYPE.RMA3_FILE;
-                }
-                if (type == null) {
-                    logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
-                } else {
-                    id2FileType.put(id, type);
-                }
-            }
+			for (String rmafile : rmafiles) {
+				int id = Math.abs(rmafile.hashCode());
+				FILETYPE fileType = null;
+				if (rmafile.toLowerCase().endsWith(".rma2")) {
+					fileType = FILETYPE.RMA2_FILE;
+				} else if (rmafile.toLowerCase().endsWith(".rma3")) {
+					fileType = FILETYPE.RMA3_FILE;
+				} else if (rmafile.toLowerCase().endsWith(".rma6")) {
+					fileType = FILETYPE.RMA6_FILE;
+				} else if (rmafile.toLowerCase().endsWith(".rma")) {
+					int version = RMA2File.getRMAVersion(new File(rmafile));
+					if (version == 2)
+						fileType = FILETYPE.RMA2_FILE;
+					else if (version == 3)
+						fileType = FILETYPE.RMA3_FILE;
+					else if (version == 6)
+						fileType = FILETYPE.RMA6_FILE;
+				}
+				
+
+				if (fileType == null) {
+					logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
+				} else {
+					id2FileType.put(id, fileType);
+					id2FileName.put(id, rmafile);
+				}
+			}
 			folders.remove(0);
 		}
 		logger.info(String.format("Done updating filesystem. Found %s RMA files", id2FileName.size()));
@@ -140,7 +152,7 @@ public class RMAFileHandler {
 	}
 
 	/**
-     * resolve the identifier to the Integer Id
+	 * resolve the identifier to the Integer Id
 	 * 
 	 * @param file
 	 * @return id
@@ -164,8 +176,8 @@ public class RMAFileHandler {
 		}
 		return fileId;
 	}
-	
-	
+
+
 	/**Resolve the identifier to the file path
 	 * 
 	 * @param file
@@ -183,7 +195,7 @@ public class RMAFileHandler {
 	}
 
 	/**
-     * get the connector
+	 * get the connector
 	 * 
 	 * @param file
 	 * @return connector

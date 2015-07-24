@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import megan.rma2.IReadBlockIterator;
+import megan.data.IReadBlockIterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

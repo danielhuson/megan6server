@@ -11,11 +11,11 @@
 \usepackage{makeidx}
 \usepackage{natbib}
 \usepackage{booktabs}
-\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue, 
+\usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
             citecolor=blue, urlcolor=blue]{hyperref}
- 
- 
- 
+
+
+
  \usepackage{bera}% optional: just to have a nice mono-spaced font
 \usepackage{listings}
 \usepackage{xcolor}
@@ -77,11 +77,11 @@ A test server has been installed with datasets extracted from a permafrost envir
 
 \section{Installation}
 
-MEGANServer is distributed as two different variants. Both version provide the same functionality but differ in how they are installed:
+MEGANServer is distributed in two different variants. Both version provide the same functionality but differ in how they are installed:
 
 \begin{itemize}
 \item \textbf{Standalone}: With the standalone version of MEGANServer we target users who would like to test the application locally. Besides the MEGANServer program this type also ships with a small application and web server (Jetty) and a script to start/stop MEGANServer out of the box.
-\item \textbf{Web Archive}: With this version we target users who would like to integrate MEGANServer in an existing web server/servlet engine environment such as Tomcat or Jetty. 
+\item \textbf{Web Archive}: With this version we target users who would like to integrate MEGANServer in an existing web server/servlet engine environment such as Tomcat or Jetty.
 \end{itemize}
 
 \subsection{Standalone}
@@ -122,7 +122,7 @@ The application can be started with the \texttt{start.sh} command. The server wi
 
 Alternatively use the graphical starter by executing \texttt{startGUI.sh} (see Figure \ref{fig:starter}).
 \begin{figure}[h!]
-  
+
   \centering
     \includegraphics[width=0.49\textwidth]{ServerStarter1.png}
     \includegraphics[width=0.49\textwidth]{ServerStarter2.png}
@@ -228,7 +228,7 @@ The FindSelection currently supports four data fields that can be searched:
 
 \texttt{useMatchText, useReadHeader, useReadName, useReadSequence}
 
-The regular expression can be any string or normal regular expression (See MEGAN manual for further information). 
+The regular expression can be any string or normal regular expression (See MEGAN manual for further information).
 
 A possible combination of these both parameters which returns data on all sequences that look like "ACTG" would then be \texttt{FindSelection="userReadSequence"\&regEx="ACTG"}
 
@@ -259,7 +259,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}	
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/}
 			\item \url{http://megan-db.org/Permafrost/help}
 		\end{itemize}
@@ -275,7 +275,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}	
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/info}
 		\end{itemize}
 \end{itemize}
@@ -290,7 +290,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}	
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/About}
 		\end{itemize}
 \end{itemize}
@@ -303,7 +303,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Retrieve a list of datasets that is known to the MEGANServer instance.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{includeMetadata}		
+			\item \textbf{includeMetadata}
 				\begin{itemize}
 					\item \textbf{Name}: includeMetadata
 					\item \textbf{Outline}: include metadata to the result
@@ -313,7 +313,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/listDatasets}			
+			\item \url{http://megan-db.org/Permafrost/listDatasets}
 			\item \url{http://megan-db.org/Permafrost/listDatasets?includeMetadata=True}
 		\end{itemize}
 \end{itemize}
@@ -325,7 +325,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the unique identifier for a dataset
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
@@ -334,9 +334,9 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getFileUid?fileId=core1_activelayer_day2.rma}
-			\item \url{http://megan-db.org/Permafrost/getFileUid?fileId=217396908}			
+			\item \url{http://megan-db.org/Permafrost/getFileUid?fileId=217396908}
 		\end{itemize}
 \end{itemize}
 
@@ -356,7 +356,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getAuxiliary?fileId=core1_activelayer_day2.rma}
 		\end{itemize}
 \end{itemize}
@@ -368,35 +368,35 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get data on a single sequence together with all its information
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{readUid}		
+			\item \textbf{readUid}
 				\begin{itemize}
-					\item \textbf{Name}: readUid (see \ref{subsec:readuid}) 
+					\item \textbf{Name}: readUid (see \ref{subsec:readuid})
 					\item \textbf{Outline}: The numerical identifier of the read
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : 0
 				\end{itemize}
-			\item \textbf{minScore}		
+			\item \textbf{minScore}
 				\begin{itemize}
 					\item \textbf{Name}: minScore (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The minimal bitscore a match has to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 0
 				\end{itemize}
-			\item \textbf{maxExpected}		
+			\item \textbf{maxExpected}
 				\begin{itemize}
 					\item \textbf{Name}: maxExpected (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The maximal E-Value a match is allowed to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 100000
 				\end{itemize}
-			\item \textbf{dataSelection}		
+			\item \textbf{dataSelection}
 				\begin{itemize}
 					\item \textbf{Name}: dataSelection (see \ref{subsec:datasel})
 					\item \textbf{Outline}: Definition of fields that should be present in the result
@@ -405,7 +405,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=331}
 			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=643&minScore=10}
 			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=643&minScore=10&maxExpected=0.01&dataSelection="useReadName,useReadLength"}
@@ -425,28 +425,28 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get data of all reads of a single dataset. Returns one page of results and a link to the next page of results.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{minScore}		
+			\item \textbf{minScore}
 				\begin{itemize}
 					\item \textbf{Name}: minScore (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The minimal bitscore a match has to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 0
 				\end{itemize}
-			\item \textbf{maxExpected}		
+			\item \textbf{maxExpected}
 				\begin{itemize}
 					\item \textbf{Name}: maxExpected (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The maximal E-Value a match is allowed to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 100000
 				\end{itemize}
-			\item \textbf{dataSelection}		
+			\item \textbf{dataSelection}
 				\begin{itemize}
 					\item \textbf{Name}: dataSelection (see \ref{subsec:datasel})
 					\item \textbf{Outline}: Definition of fields that should be present in the result
@@ -455,7 +455,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getAllReadsIterator?fileId=core1_activelayer_day2.rma}
 		\end{itemize}
 \end{itemize}
@@ -466,42 +466,42 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get data of all reads of a single dataset that are assigned to a node in the taxonomy or functional classification. Returns one page of results and a link to the next page of results.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classId}		
+			\item \textbf{classId}
 				\begin{itemize}
 					\item \textbf{Name}: classId (see \ref{subsec:class})
 					\item \textbf{Outline}: The id of a classification such as NCBI taxonomy, KEGG or SEED
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classification}		
+			\item \textbf{classification}
 				\begin{itemize}
 					\item \textbf{Name}: classification (see \ref{subsec:class})
 					\item \textbf{Outline}: One of the classifications MEGAN supports
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{minScore}		
+			\item \textbf{minScore}
 				\begin{itemize}
 					\item \textbf{Name}: minScore (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The minimal bitscore a match has to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 0
 				\end{itemize}
-			\item \textbf{maxExpected}		
+			\item \textbf{maxExpected}
 				\begin{itemize}
 					\item \textbf{Name}: maxExpected (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The maximal E-Value a match is allowed to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 100000
 				\end{itemize}
-			\item \textbf{dataSelection}		
+			\item \textbf{dataSelection}
 				\begin{itemize}
 					\item \textbf{Name}: dataSelection (see \ref{subsec:datasel})
 					\item \textbf{Outline}: Definition of fields that should be present in the result
@@ -510,7 +510,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getReadsIterator?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classId=14}
 		\end{itemize}
 \end{itemize}
@@ -523,42 +523,42 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get data of all reads of a single dataset that are assigned to a number of nodes in the taxonomy or functional classification. Returns one page of results and a link to the next page of results.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classId}		
+			\item \textbf{classId}
 				\begin{itemize}
 					\item \textbf{Name}: classId (see \ref{subsec:class})s
 					\item \textbf{Outline}: The ids of a classification such as NCBI taxonomy, KEGG or SEED
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classification}		
+			\item \textbf{classification}
 				\begin{itemize}
 					\item \textbf{Name}: classification (see \ref{subsec:class})
 					\item \textbf{Outline}: One of the classifications MEGAN supports
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{minScore}		
+			\item \textbf{minScore}
 				\begin{itemize}
 					\item \textbf{Name}: minScore (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The minimal bitscore a match has to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 0
 				\end{itemize}
-			\item \textbf{maxExpected}		
+			\item \textbf{maxExpected}
 				\begin{itemize}
 					\item \textbf{Name}: maxExpected (see \ref{subsec:minScore})
 					\item \textbf{Outline}: The maximal E-Value a match is allowed to have in order to be present in the result
 					\item \textbf{Required} : false
 					\item \textbf{Default Value} : 100000
 				\end{itemize}
-			\item \textbf{dataSelection}		
+			\item \textbf{dataSelection}
 				\begin{itemize}
 					\item \textbf{Name}: dataSelection (see \ref{subsec:datasel})
 					\item \textbf{Outline}: Definition of fields that should be present in the result
@@ -567,7 +567,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getReadsForMultipleClassIds?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classIds=14,-1}
 		\end{itemize}
 \end{itemize}
@@ -579,21 +579,21 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get data of all reads of a single dataset and searches for text patterns. Those fulfilling the pattern are returned. Returns one page of results and a link to the next page of results.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{regEx}		
+			\item \textbf{regEx}
 				\begin{itemize}
 					\item \textbf{Name}: regEx (see \ref{subsec:findsel})
 					\item \textbf{Outline}: Regular expression that is being searched for
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{findSelection}		
+			\item \textbf{findSelection}
 				\begin{itemize}
 					\item \textbf{Name}: findSelection (see \ref{subsec:findsel})
 					\item \textbf{Outline}: Where to search
@@ -603,7 +603,7 @@ These both parameters are meant to give users the possibility to filter matches 
 
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getFindAllReadsIterator?fileId=core1_activelayer_day2.rma&regEx=Bacteria&findSelection=useMatchText}
 		\end{itemize}
 \end{itemize}
@@ -616,7 +616,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Load the next page of an readblockiterator
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{pageId}		
+			\item \textbf{pageId}
 				\begin{itemize}
 					\item \textbf{Name}: pageId
 					\item \textbf{Outline}: Next page Id. Retrieved from the previous page
@@ -625,7 +625,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}: \textcolor{red}{Pages and pageIds are dynamic. This is why the link in the example will not work. Try to insert your own pageId.}
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/loadPagedReads?pageId=823880593}
 		\end{itemize}
 \end{itemize}
@@ -638,7 +638,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get number of reads for one dataset
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
@@ -647,7 +647,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getNumberOfReads?fileId=217396908}
 		\end{itemize}
 \end{itemize}
@@ -660,7 +660,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get number of alignments for one dataset
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
@@ -669,7 +669,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getNumberOfMatches?fileId=217396908}
 		\end{itemize}
 \end{itemize}
@@ -681,7 +681,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the names of all classifications present in this dataset
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
@@ -690,7 +690,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getAllClassificationNames?fileId=core1_activelayer_day2.rma}
 		\end{itemize}
 \end{itemize}
@@ -700,21 +700,21 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the number of reads assigned to one node in a classification
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classId}		
+			\item \textbf{classId}
 				\begin{itemize}
 					\item \textbf{Name}: classId (see \ref{subsec:class})
 					\item \textbf{Outline}: The id of a classification such as NCBI taxonomy, KEGG or SEED
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classification}		
+			\item \textbf{classification}
 				\begin{itemize}
 					\item \textbf{Name}: classification (see \ref{subsec:class})
 					\item \textbf{Outline}: One of the classifications MEGAN supports
@@ -723,7 +723,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getClassSize?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classId=14}
 		\end{itemize}
 \end{itemize}
@@ -735,14 +735,14 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the number of reads assigned to all nodes in a classification
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classification}		
+			\item \textbf{classification}
 				\begin{itemize}
 					\item \textbf{Name}: classification (see \ref{subsec:class})
 					\item \textbf{Outline}: One of the classifications MEGAN supports
@@ -751,7 +751,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getClassificationBlock?fileId=core1_activelayer_day2.rma&classification=Taxonomy}
 		\end{itemize}
 \end{itemize}
@@ -763,7 +763,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Determines if user has write permissions. Currently all datasets are readOnly, no matter if a user is admin or not.
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
@@ -772,7 +772,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/isReadOnly?fileId=core1_activelayer_day2.rma}
 		\end{itemize}
 \end{itemize}
@@ -783,14 +783,14 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the number of nodes with reads in a classification
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{fileId}		
+			\item \textbf{fileId}
 				\begin{itemize}
 					\item \textbf{Name}: fileId (see \ref{subsec:fileid})
 					\item \textbf{Outline}: An identifier of a dataset. Either a path, a name or a number
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{classification}		
+			\item \textbf{classification}
 				\begin{itemize}
 					\item \textbf{Name}: classification (see \ref{subsec:class})
 					\item \textbf{Outline}: One of the classifications MEGAN supports
@@ -799,7 +799,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/getClassificationSize?fileId=core1_activelayer_day2.rma&classification=Taxonomy}
 		\end{itemize}
 \end{itemize}
@@ -816,7 +816,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item  None
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/admin/updateDatasets}
 		\end{itemize}
 \end{itemize}
@@ -830,21 +830,21 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Get the number of nodes with reads in a classification
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{userName}		
+			\item \textbf{userName}
 				\begin{itemize}
 					\item \textbf{Name}: userName
 					\item \textbf{Outline}: Name of the new user
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{password}		
+			\item \textbf{password}
 				\begin{itemize}
 					\item \textbf{Name}: password
 					\item \textbf{Outline}: password for the user
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
 				\end{itemize}
-			\item \textbf{isAdmin}		
+			\item \textbf{isAdmin}
 				\begin{itemize}
 					\item \textbf{Name}: isAdmin
 					\item \textbf{Outline}: Determines if the new user should get admin rights
@@ -853,7 +853,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/admin/addUser?userName=Megan&password=Server&isAdmin=false}
 		\end{itemize}
 \end{itemize}
@@ -868,7 +868,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item No parameters
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/admin/listUsers}
 		\end{itemize}
 \end{itemize}
@@ -878,7 +878,7 @@ These both parameters are meant to give users the possibility to filter matches 
 	\item \textbf{Outline}: Delete user and revoke credentials
 	\item \textbf{Parameters}
 		\begin{itemize}
-			\item \textbf{userName}		
+			\item \textbf{userName}
 				\begin{itemize}
 					\item \textbf{Name}: userName
 					\item \textbf{Outline}: Name of the new user
@@ -887,7 +887,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/admin/removeUser?userName=Megan}
 		\end{itemize}
 \end{itemize}
@@ -901,7 +901,7 @@ These both parameters are meant to give users the possibility to filter matches 
 			\item No parameters
 		\end{itemize}
 	\item \textbf{Examples}:
-		\begin{itemize}		
+		\begin{itemize}
 			\item \url{http://megan-db.org/Permafrost/admin/getLog}
 		\end{itemize}
 \end{itemize}

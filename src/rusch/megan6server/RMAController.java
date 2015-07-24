@@ -7,11 +7,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jloda.util.Single;
 import megan.data.DataSelection;
 import megan.data.FindSelection;
 import megan.data.IConnector;
-import megan.rma2.IReadBlockGetter;
-import megan.rma2.IReadBlockIterator;
+import megan.data.IReadBlockGetter;
+import megan.data.IReadBlockIterator;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -75,19 +76,19 @@ public class RMAController {
 
 		RMADataset[] datasets = rma3FileHandler.getAllDatasets();
 		for(RMADataset dataset : datasets){
-            try {
-                Map<String, String> name2value = Metadata.transformMetadataString(getAuxiliaryData(String.valueOf(dataset.getDatasetUid())).get("SAMPLE_ATTRIBUTES"));
-                if (name2value.containsKey("Description")) {
-                    dataset.setDescription(name2value.get("Description"));
-                } else {
-                    dataset.setDescription("No description provided");
-                }
-                if (includeMetadata) {
-                    dataset.setMetadata(name2value);
-                    dataset.getMetadata().put("@Source", dataset.getDatasetName());
-                }
-            }
-            catch(Exception ex){}
+			try {
+				Map<String, String> name2value = Metadata.transformMetadataString(getAuxiliaryData(String.valueOf(dataset.getDatasetUid())).get("SAMPLE_ATTRIBUTES"));
+				if (name2value.containsKey("Description")) {
+					dataset.setDescription(name2value.get("Description"));
+				} else {
+					dataset.setDescription("No description provided");
+				}
+				if (includeMetadata) {
+					dataset.setMetadata(name2value);
+					dataset.getMetadata().put("@Source", dataset.getDatasetName());
+				}
+			}
+			catch(Exception ex){}
 		}
 
 
@@ -99,8 +100,9 @@ public class RMAController {
 		return cache.getAuxBlock(rma3FileHandler, fileId);
 	}
 	@RequestMapping(value = "getAllClassificationNames", method = RequestMethod.GET)
-	public @ResponseBody String[] getAllClassificationNames(@RequestParam(value="fileId", required=true) String fileId) throws IOException {		IConnector connector = rma3FileHandler.getIConnector(fileId);
-	return connector.getAllClassificationNames();
+	public @ResponseBody String[] getAllClassificationNames(@RequestParam(value="fileId", required=true) String fileId) throws IOException {		
+		IConnector connector = rma3FileHandler.getIConnector(fileId);
+		return connector.getAllClassificationNames();
 	}
 	@RequestMapping(value = "getClassificationBlock", method = RequestMethod.GET)
 	public @ResponseBody ClassificationBlockServer getClassificationsBlock(@RequestParam(value="fileId", required=true) String fileId, @RequestParam(value="classification", required=true) String classification) throws IOException{
@@ -111,7 +113,9 @@ public class RMAController {
 	public @ResponseBody ReadBlockPage getAllReadsIterator(@RequestParam(value="fileId", required=true) String fileId, @RequestParam(value="minScore", required=false) Float minScore, @RequestParam(value="maxExpected", required=false) Float maxExpected, @RequestParam(value="dataSelection", required=false) String[] dataSelection) throws IOException {
 		DataSelection dataSel = null;
 		if(dataSelection == null){
-			dataSel= DataSelection.getSelectionForCreation(true, true, true, true,true);
+			dataSel= new DataSelection();
+			dataSel.setWantMatches(true);
+			dataSel.setWantReadText(true);
 		}else{
 			dataSel = DataSelectionSerializer.deserializeDataSelection(dataSelection);
 		}
@@ -122,7 +126,7 @@ public class RMAController {
 			maxExpected = 1000000f;
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
-		IReadBlockIterator it =  connector.getAllReadsIterator(minScore, maxExpected, dataSel);
+		IReadBlockIterator it =  connector.getAllReadsIterator(minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
 		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getAllReadsIterator", "loadPagedReads"));
 		return page;
@@ -132,7 +136,9 @@ public class RMAController {
 	public @ResponseBody ReadBlockPage getReadsIterator(@RequestParam(value="fileId", required=true) String fileId, @RequestParam(value="minScore", required=false) Float minScore, @RequestParam(value="maxExpected", required=false) Float maxExpected, @RequestParam(value="classification", required=true) String classification, @RequestParam(value="classId", required=true) int classId, @RequestParam(value="dataSelection", required=false) String[] dataSelection) throws IOException {
 		DataSelection dataSel = null;
 		if(dataSelection == null){
-			dataSel= DataSelection.getSelectionForCreation(true, true, true, true,true);
+			dataSel= new DataSelection();
+			dataSel.setWantMatches(true);
+			dataSel.setWantReadText(true);
 		}else{
 			dataSel = DataSelectionSerializer.deserializeDataSelection(dataSelection);
 		}
@@ -143,7 +149,7 @@ public class RMAController {
 			maxExpected = 1000000f;
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
-		IReadBlockIterator it = connector.getReadsIterator(classification, classId, minScore, maxExpected, dataSel);
+		IReadBlockIterator it = connector.getReadsIterator(classification, classId, minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
 		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getReadsIterator", "loadPagedReads"));
 		return page;
@@ -156,7 +162,9 @@ public class RMAController {
 	public @ResponseBody ReadBlockPage getReadsIteratorForListOfClassIds(@RequestParam(value="fileId", required=true) String fileId, @RequestParam(value="minScore", required=false) Float minScore, @RequestParam(value="maxExpected", required=false) Float maxExpected, @RequestParam(value="classification", required=true) String classification, @RequestParam(value="classIds", required=true) Integer[] classIds, @RequestParam(value="dataSelection", required=false) String[] dataSelection) throws IOException {
 		DataSelection dataSel = null;
 		if(dataSelection == null){
-			dataSel= DataSelection.getSelectionForCreation(true, true, true, true,true);
+			dataSel= new DataSelection();
+			dataSel.setWantMatches(true);
+			dataSel.setWantReadText(true);
 		}else{
 			dataSel = DataSelectionSerializer.deserializeDataSelection(dataSelection);
 		}
@@ -167,7 +175,7 @@ public class RMAController {
 			maxExpected = 1000000f;
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
-		IReadBlockIterator it = connector.getReadsIteratorForListOfClassIds(classification, Arrays.asList(classIds), minScore, maxExpected, dataSel);
+		IReadBlockIterator it = connector.getReadsIteratorForListOfClassIds(classification, Arrays.asList(classIds), minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
 		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getReadsForMultipleClassIds", "loadPagedReads"));
 		return page;
@@ -200,7 +208,7 @@ public class RMAController {
 			findSel = DataSelectionSerializer.deserializeFindSelection(findSelection);
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
-		IReadBlockIterator it = connector.getFindAllReadsIterator(regEx, findSel);
+		IReadBlockIterator it = connector.getFindAllReadsIterator(regEx, findSel, new Single<Boolean>(false));
 		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getFindAllReadsIterator", "loadPagedReads"));
 		return page;
@@ -220,8 +228,6 @@ public class RMAController {
 
 	@RequestMapping(value={"", "/", "help"}, method = RequestMethod.GET)
 	public @ResponseBody Map<String, Map<String, Object>> help() throws IOException{
-		Map<String, Map<String, Object>> requests = RMAControllerMappings.REQUESTS;
-		requests.put(RMAControllerMappings.UPDATE_DATASETS_MAPPING, RMAControllerMappings.UPDATE_DATASETS_REQUEST);
 		return RMAControllerMappings.REQUESTS;
 	}
 
@@ -234,7 +240,9 @@ public class RMAController {
 	public @ResponseBody ReadBlockServer getReadsBlock(@RequestParam(value="fileId", required=true) String fileId, @RequestParam(value="readUid", required=true) long readUid, @RequestParam(value="minScore", required=false) Float minScore, @RequestParam(value="maxExpected", required=false) Float maxExpected, @RequestParam(value="dataSelection", required=false) String[] dataSelection) throws IOException {
 		DataSelection dataSel = null;
 		if(dataSelection == null){
-			dataSel= DataSelection.getSelectionForCreation(true, true, true, true,true);
+			dataSel= new DataSelection();
+			dataSel.setWantMatches(true);
+			dataSel.setWantReadText(true);
 		}else{
 			dataSel = DataSelectionSerializer.deserializeDataSelection(dataSelection);
 		}
@@ -245,7 +253,7 @@ public class RMAController {
 			maxExpected = 1000000f;
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
-		IReadBlockGetter getter =  connector.getReadBlockGetter(minScore, maxExpected, dataSel);
+		IReadBlockGetter getter =  connector.getReadBlockGetter(minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
 		ReadBlockServer s =  new ReadBlockServer(getter.getReadBlock(readUid));
 		getter.close();
 		return s;

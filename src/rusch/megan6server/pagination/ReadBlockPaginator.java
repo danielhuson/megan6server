@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import megan.rma2.IReadBlockIterator;
+import megan.data.IReadBlockIterator;
 import rusch.megan5client.ReadBlockServer;
 import rusch.megan5client.connector.ReadBlockPage;
 

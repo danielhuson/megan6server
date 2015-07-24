@@ -33,6 +33,7 @@ import megan.data.IConnector;
 import megan.rma2.RMA2Connector;
 import megan.rma2.RMA2File;
 import megan.rma3.RMA3Connector;
+import megan.rma6.RMA6Connector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -142,8 +143,6 @@ public class RMAFileHandler {
 					else if (version == 6)
 						fileType = FILETYPE.RMA6_FILE;
 				}
-				
-
 				if (fileType == null) {
 					logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
 				} else {
@@ -222,14 +221,19 @@ public class RMAFileHandler {
 	public IConnector getIConnector(String file) throws IOException{
 		final int fileId = resolveFileIdentifierToId(file);
 		final String rmafile = getRMAFileAbsolutePath(fileId);
-
 		final FILETYPE type =  id2FileType.get(fileId);
 		Assert.notNull(type);
-		IConnector connector;
-		if(type.equals(FILETYPE.RMA2_FILE)){
+		IConnector connector = null;
+		switch(type){
+		case RMA2_FILE:
 			connector =  new RMA2Connector(rmafile);
-		}else{
+			break;
+		case RMA3_FILE:
 			connector = new RMA3Connector(rmafile);
+			break;
+		case RMA6_FILE:
+			connector = new RMA6Connector(rmafile);
+			break;
 		}
 		Assert.notNull(connector);
 		return connector;

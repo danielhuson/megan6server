@@ -50,6 +50,7 @@ import rusch.megan5client.ClassificationBlockServer;
 import rusch.megan5client.DataSelectionSerializer;
 import rusch.megan5client.Metadata;
 import rusch.megan5client.RMADataset;
+import rusch.megan5client.RMADatasetWithAuxiliary;
 import rusch.megan5client.ReadBlockServer;
 import rusch.megan5client.connector.RMAControllerMappings;
 import rusch.megan5client.connector.ReadBlockPage;
@@ -113,6 +114,34 @@ public class RMAController {
 
 		return datasets;
 	}
+
+	/**Hidden method to retrieve an overview of all data together with aux data. This is for the view of MEGANServer
+	 * 
+	 * @return
+	 * @throws IOException
+	 */
+	@RequestMapping(value = "listDatasetsIncludeAuxiliary", method = RequestMethod.GET)
+	public @ResponseBody RMADatasetWithAuxiliary[] getAllDatasetsIncludeAuxiliary() throws IOException{
+
+
+		RMADataset[] datasets = getAllDatasets(true);
+		RMADatasetWithAuxiliary[] datasets2 = new RMADatasetWithAuxiliary[datasets.length];
+		for(int i=0; i<datasets.length; i++){
+			RMADataset dataset = datasets[i];
+			RMADatasetWithAuxiliary datasetAux = new RMADatasetWithAuxiliary();
+			Map<String, String> aux = getAuxiliaryData(String.valueOf(dataset.getDatasetUid()));
+			datasetAux.setAux(aux);
+			datasetAux.setDatasetName(dataset.getDatasetName());
+			datasetAux.setDatasetUid(dataset.getDatasetUid());
+			datasetAux.setDescription(dataset.getDescription());
+			datasetAux.setMetadata(dataset.getMetadata());
+			datasets2[i] = datasetAux;
+		}
+
+
+		return datasets2;
+	}
+
 	@RequestMapping(value = "getAuxiliary", method = RequestMethod.GET)
 	public @ResponseBody Map<String, String> getAuxiliaryData(@RequestParam(value="fileId", required=true) String fileId) throws IOException{
 		return cache.getAuxBlock(rma3FileHandler, fileId);

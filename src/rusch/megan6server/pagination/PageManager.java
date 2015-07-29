@@ -63,7 +63,7 @@ public class PageManager {
 			}
 		}, 5*60*1000, 5*60*1000); // first time after 5 minutes and then every 5 minutes
 	}
-	
+
 	
 	/**Removing inactive paginators. A paginator is inactive after it has not been accessed for 1 minute.
 	 * 
@@ -81,9 +81,9 @@ public class PageManager {
 					logger.warn("Problems closing a Paginator.", e);
 				}
 			}
-			for(String paginator : pages2remove){
-				pageCode2Paginators.remove(paginator);
-			}
+		}
+		for(String paginator : pages2remove){
+			pageCode2Paginators.remove(paginator);
 		}
 	}
 

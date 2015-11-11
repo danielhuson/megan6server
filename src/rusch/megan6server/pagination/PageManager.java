@@ -50,7 +50,7 @@ public class PageManager {
 	private Cache<String, ReadBlockPage> pageCode2readblocks = CacheBuilder.newBuilder().maximumSize(100).build();
 	private Map<String, ReadBlockPaginator> pageCode2Paginators = new HashMap<String, ReadBlockPaginator>();
 	private int blocksize = 50;
-	private long timeout = 60000;
+	private long timeout = 60000; //1 min timeout
 	private static final Logger logger = LoggerFactory.getLogger(PageManager.class);
 	private Timer timer = new Timer(); //closing non active rma readers
 
@@ -61,7 +61,7 @@ public class PageManager {
 			public void run() {
 				removeInactivePaginators();
 			}
-		}, 5*60*1000, 5*60*1000); // first time after 5 minutes and then every 5 minutes
+		}, 1*60*1000, 1*60*1000); // first time after 5 minutes and then every 5 minutes
 	}
 
 	
@@ -83,7 +83,9 @@ public class PageManager {
 			}
 		}
 		for(String paginator : pages2remove){
+			ReadBlockPaginator p = pageCode2Paginators.get(paginator);
 			pageCode2Paginators.remove(paginator);
+			p = null;
 		}
 	}
 

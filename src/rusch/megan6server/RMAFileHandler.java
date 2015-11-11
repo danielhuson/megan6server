@@ -29,6 +29,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import megan.daa.connector.DAAConnector;
+import megan.daa.io.DAAParser;
 import megan.data.IConnector;
 import megan.rma2.RMA2Connector;
 import megan.rma2.RMA2File;
@@ -54,7 +56,7 @@ public class RMAFileHandler {
 	private File rootDirectory;
 	private final Map<Integer, String> id2FileName;
 	private final Map<Integer, FILETYPE> id2FileType;
-	public static enum FILETYPE {RMA2_FILE, RMA3_FILE, RMA6_FILE};
+	public static enum FILETYPE {RMA2_FILE, RMA3_FILE, RMA6_FILE, DAA_FILE};
 	private static final Logger logger = LoggerFactory.getLogger(RMAFileHandler.class);
 
 	/**Constructor
@@ -90,7 +92,7 @@ public class RMAFileHandler {
 			throw new RuntimeException("File not found in path: meganserver.properties");
 
 		prop.load(input);
-		String rootFolder = prop.getProperty("rma.rootFolder");
+		String rootFolder = prop.getProperty("rma.rootFolder").trim();
 		if(rootFolder.equals("")){
 			rootFolder = System.getProperty("user.home");
 		}
@@ -109,10 +111,11 @@ public class RMAFileHandler {
 		logger.info("Updating filesystem.");
 		final List<File> folders = new ArrayList<File>();
 		folders.add(rootDirectory);
-		final List<String> rmafiles = new ArrayList<String>();
+
 		id2FileName.clear();
 		id2FileType.clear();
 		while(!folders.isEmpty()){
+			final List<String> rmafiles = new ArrayList<String>();
 			for(String file : folders.get(0).list()){
 				String file2 = folders.get(0) + File.separator + file;
 				//				if(RMAFileFilter.getInstance().accept(new File(file2)) && !file.endsWith(".rmaz")){ The new RMAFileFilter doesnt support this.. so lets skip
@@ -142,9 +145,15 @@ public class RMAFileHandler {
 						fileType = FILETYPE.RMA3_FILE;
 					else if (version == 6)
 						fileType = FILETYPE.RMA6_FILE;
+				} else if (rmafile.toLowerCase().endsWith(".daa")) {
+					fileType = FILETYPE.DAA_FILE;
+					if(!DAAParser.isMeganizedDAAFile(rmafile, true)){
+						logger.warn("File " + rmafile + " is a daa file that has not been meganized. Will ignore it.");
+						fileType = null;
+					}
 				}
 				if (fileType == null) {
-					//logger.warn("File " + rmafile + " is not a rma file. Why did it pass the filter?");
+					logger.warn("File " + rmafile + " is not a rma/meganized daa file.");
 				} else {
 					id2FileType.put(id, fileType);
 					id2FileName.put(id, rmafile);
@@ -152,7 +161,7 @@ public class RMAFileHandler {
 			}
 			folders.remove(0);
 		}
-		logger.info(String.format("Done updating filesystem. Found %s RMA files", id2FileName.size()));
+		logger.info(String.format("Done updating filesystem. Found %s RMA/DAA files", id2FileName.size()));
 	}
 
 
@@ -233,6 +242,9 @@ public class RMAFileHandler {
 			break;
 		case RMA6_FILE:
 			connector = new RMA6Connector(rmafile);
+			break;
+		case DAA_FILE:
+			connector = new DAAConnector(rmafile);
 			break;
 		}
 		Assert.notNull(connector);

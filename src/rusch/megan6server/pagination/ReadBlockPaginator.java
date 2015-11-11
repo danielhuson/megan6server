@@ -35,7 +35,7 @@ import rusch.megan5client.connector.ReadBlockPage;
  *
  */
 public class ReadBlockPaginator {
-	private final IReadBlockIterator iterator;
+	private IReadBlockIterator iterator;
 	private long lastAccessed;
 	private long timeout;
 	private int blockSize;
@@ -63,6 +63,7 @@ public class ReadBlockPaginator {
 
 	public void close() throws IOException{
 		iterator.close();
+		iterator = null;
 		isClosed = true;
 	}
 

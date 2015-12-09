@@ -94,8 +94,8 @@ public class PageManager {
 	 * @param iterator
 	 * @return
 	 */
-	public String registerPaginator(IReadBlockIterator iterator){
-		ReadBlockPaginator paginator = new ReadBlockPaginator(iterator, timeout, blocksize);
+	public String registerPaginator(IReadBlockIterator iterator, String[] classnames){
+		ReadBlockPaginator paginator = new ReadBlockPaginator(iterator, timeout, blocksize, classnames);
 		String initialPageId = paginator.retrieveInitialPageId();
 		pageCode2Paginators.put(initialPageId, paginator);
 		return initialPageId;

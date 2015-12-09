@@ -42,13 +42,15 @@ public class ReadBlockPaginator {
 	private boolean isClosed = false;
 	private long totalNumberOfReads = 0;
 	private long previouslySeenReads = 0;
+	private String[] classnames;
 
-	public ReadBlockPaginator(IReadBlockIterator it, long timeout, int blockSize){
+	public ReadBlockPaginator(IReadBlockIterator it, long timeout, int blockSize, String[] classnames){
 		iterator = it;
 		lastAccessed = System.currentTimeMillis();
 		this.timeout = timeout;
 		this.blockSize = blockSize;
 		this.totalNumberOfReads = it.getMaximumProgress();
+		this.classnames = classnames;
 	}
 
 
@@ -81,7 +83,7 @@ public class ReadBlockPaginator {
 			int pos = 0;
 			while(iterator.hasNext()){
 				pos++;
-				rbs.add(new ReadBlockServer(iterator.next()));
+				rbs.add(new ReadBlockServer(iterator.next(), this.classnames));
 				if(rbs.size() == blockSize){
 					break;
 				}

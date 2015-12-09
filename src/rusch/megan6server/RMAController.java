@@ -174,7 +174,7 @@ public class RMAController {
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
 		IReadBlockIterator it =  connector.getAllReadsIterator(minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
-		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
+		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it, connector.getAllClassificationNames()));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getAllReadsIterator", "loadPagedReads"));
 		return page;
 	}
@@ -197,7 +197,7 @@ public class RMAController {
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
 		IReadBlockIterator it = connector.getReadsIterator(classification, classId, minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
-		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
+		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it, connector.getAllClassificationNames()));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getReadsIterator", "loadPagedReads"));
 		return page;
 	}
@@ -223,7 +223,7 @@ public class RMAController {
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
 		IReadBlockIterator it = connector.getReadsIteratorForListOfClassIds(classification, Arrays.asList(classIds), minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
-		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
+		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it, connector.getAllClassificationNames()));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getReadsForMultipleClassIds", "loadPagedReads"));
 		return page;
 	}
@@ -256,7 +256,7 @@ public class RMAController {
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
 		IReadBlockIterator it = connector.getFindAllReadsIterator(regEx, findSel, new Single<Boolean>(false));
-		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it));
+		ReadBlockPage page =  retrieveReadBlockPage(pageManager.registerPaginator(it, connector.getAllClassificationNames()));
 		page.setNextPageUrl(page.getNextPageUrl().replace("getFindAllReadsIterator", "loadPagedReads"));
 		return page;
 
@@ -300,8 +300,9 @@ public class RMAController {
 			maxExpected = 1000000f;
 		}
 		IConnector connector = rma3FileHandler.getIConnector(fileId);
+		String[] classnames = connector.getAllClassificationNames();
 		IReadBlockGetter getter =  connector.getReadBlockGetter(minScore, maxExpected, dataSel.isWantReadText(), dataSel.isWantMatches());
-		ReadBlockServer s =  new ReadBlockServer(getter.getReadBlock(readUid));
+		ReadBlockServer s =  new ReadBlockServer(getter.getReadBlock(readUid), classnames);
 		getter.close();
 		return s;
 	}

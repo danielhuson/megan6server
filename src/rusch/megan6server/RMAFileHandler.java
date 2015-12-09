@@ -153,7 +153,7 @@ public class RMAFileHandler {
 					}
 				}
 				if (fileType == null) {
-					logger.warn("File " + rmafile + " is not a rma/meganized daa file.");
+					//logger.warn("File " + rmafile + " is not a rma/meganized daa file.");
 				} else {
 					id2FileType.put(id, fileType);
 					id2FileName.put(id, rmafile);

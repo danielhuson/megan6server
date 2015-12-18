@@ -9,8 +9,8 @@
 \usepackage{version}
 \usepackage{tocbibind}
 \usepackage{makeidx}
-\usepackage{natbib}
 \usepackage{booktabs}
+
 \usepackage[colorlinks=true, pdfstartview=FitV, linkcolor=blue,
             citecolor=blue, urlcolor=blue]{hyperref}
 
@@ -31,7 +31,7 @@
 \parindent=0pt
 \parskip=5pt
 
-%\def\MEGANServer{{\sf MEGANServer}}
+%\def\MeganServer{{\sf MeganServer}}
 %\def\MEGAN{{\sf MEGAN}}
 \newcommand{\ignoreDB}[1]{}
 \newcommand{\prop}[2]{\texttt{\textcolor{blue}{#1}=\textcolor{red}{#2}}}
@@ -42,7 +42,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{User Manual for \sf{MEGANServer}1.0}
+\title{User Manual for \sf{MeganServer}1.0}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,38 +70,44 @@
 \section{Introduction}
 
 
-MEGANServer is a companion tool to MEGAN \citep{MEGAN2011} and allows researchers to outsource the storage of often very large metagenomic datasets to a dedicated server. For data transfer and accessibility we provide a RESTful API based on JSON. Furthermore, we extended MEGAN in that way that remote datasets can be accessed within MEGAN as simple as if they would be stored locally.
+MeganServer is a companion tool to MEGAN 6 \cite{MEGAN6} and allows researchers to outsource the storage of often very large metagenomic datasets to a dedicated server. For data transfer and accessibility we provide a RESTful API based on JSON. Furthermore, we extended MEGAN in that way that remote datasets can be accessed within MEGAN as simple as if they would be stored locally.
 
-A test server has been installed with datasets extracted from a permafrost environment by \citep{Mackelprang2011}  and is available from \url{http://megan-db.org/Permafrost/}, userName=\textit{guest}, password=\textit{guest}.
+We operate a public instance of MeganServer at  \url{http://megan-db.org/Public/}  in T\"ubingen, Germany. 
+This instance provides access to MEGAN files containing the complete taxonomic and functional analysis of a number of published metagenome samples.
+Under ``Asari''  we list 12 human gut samples from a recent study on antibiotic selection pressure \cite{WillmannASARI2015}, labeled ``Alice'' and ``Bob''.
+This dataset consists of 612 million aligned reads (out of 830 million reads) and nearly 10 billion alignments, requiring 229\,GB to host.
+Under ``Daisy'',  we list four human gut samples published in \cite{Voigt2015}. These datasets contain a total of 6.6 million aligned reads, requiring 6\,GB to host.
+Under ``Permafrost''', we list 12 permafrost soil samples published in \cite{Mackelprang2011}.
+These datasets  contains 52 million aligned reads (out of 250 million reads), requiring 38\,GB to host.
 
 
 \section{Installation}
 
-MEGANServer is distributed in two different variants. Both version provide the same functionality but differ in how they are installed:
+MeganServer is distributed in two different variants. Both version provide the same functionality but differ in how they are installed:
 
 \begin{itemize}
-\item \textbf{Standalone}: With the standalone version of MEGANServer we target users who would like to test the application locally. Besides the MEGANServer program this type also ships with a small application and web server (Jetty) and a script to start/stop MEGANServer out of the box.
-\item \textbf{Web Archive}: With this version we target users who would like to integrate MEGANServer in an existing web server/servlet engine environment such as Tomcat or Jetty.
+\item \textbf{Standalone}: With the standalone version of MeganServer we target users who would like to test the application locally. Besides the MeganServer program this bundle also ships with a small application and web server (Jetty) and a script to start/stop MeganServer out of the box.
+\item \textbf{Web Archive}: With this version we target users who would like to integrate MeganServer in an existing web server/servlet engine environment such as Tomcat or Jetty.
 \end{itemize}
 
 \subsection{Standalone}
-\textbf{Prerequisites}: MEGANServer requires an installed JAVA runtime, version 7 or 8.
+\textbf{Prerequisites}: MeganServer requires an installed JAVA runtime, version 8.
 
-Download \texttt{MEGANServer\_standalone.zip} from \url{http://ab.inf.uni-tuebingen.de/data/software/meganserver/download/MEGANServer\_standalone.zip}. The archive includes:
+Download \texttt{MeganServer\_standalone.zip} from \url{http://ab.inf.uni-tuebingen.de/software/MeganServer}. The archive includes:
 
 \begin{itemize}
 
-\item \textbf{bin} folder with scripts to start and stop MEGANServer
+\item \textbf{bin} folder with scripts to start and stop MeganServer
 	\begin{itemize}
-		\item \textbf{\texttt{start.sh}}: Script to start MEGANServer in Linux and OS X
-		\item \textbf{\texttt{startGUI.sh}}: Script to start MEGANServer with a graphical user interface in Linux and OS X
-		\item \textbf{\texttt{stop.sh}}: Script to stop MEGANServer in Linux and OS X
+		\item \textbf{\texttt{start.sh}}: Script to start MeganServer in Linux and OS X
+		\item \textbf{\texttt{startGUI.sh}}: Script to start MeganServer with a graphical user interface in Linux and OS X
+		\item \textbf{\texttt{stop.sh}}: Script to stop MeganServer in Linux and OS X
 	\end{itemize}
 \item \textbf{lib} folder with libraries
 	\begin{itemize}
-		\item \textbf{\texttt{MEGANServer.war}}: The MEGANServer application
-		\item \textbf{\texttt{ServerStarter.jar}}: The graphical user interface to start MEGANServer
-		\item \textbf{\texttt{jetty-runner-9.2.7.v20150116.jar}}: The web server which hosts the MEGANServer application
+		\item \textbf{\texttt{MeganServer.war}}: The MeganServer application
+		\item \textbf{\texttt{ServerStarter.jar}}: The graphical user interface to start MeganServer
+		\item \textbf{\texttt{jetty-runner-9.2.7.v20150116.jar}}: The web server which hosts the MeganServer application
 		\item \textbf{\texttt{commons-codec-1.6.jar}}: An additional library
 		\item \textbf{\texttt{start.jar}}: An additional library
 		\item \textbf{\texttt{TableLayout.jar}}: An additional library
@@ -110,14 +116,14 @@ Download \texttt{MEGANServer\_standalone.zip} from \url{http://ab.inf.uni-tuebin
 	\begin{itemize}
 	\item \textbf{\texttt{credentials.txt}}
 	\item \textbf{\texttt{log4j.properties}}
-	\item \textbf{\texttt{MEGANServer.properties}}
+	\item \textbf{\texttt{MeganServer.properties}}
 	\item \textbf{\texttt{info.txt}}
 	\end{itemize}
 \item \textbf{log} folder where the application's log files are stored
 \item \textbf{manual.pdf}: This manual
 \end{itemize}
 
-The application can be started with the \texttt{start.sh} command. The server will then be accessible via \url{http://localhost:8080/MEGANServer/}. To stop the server execute \texttt{stop.sh}. MEGANServer needs to know where on the file system the RMA files can be found. Please read Section \ref{subsec:props} for configuration options.
+The application can be started with the \texttt{start.sh} command. The server will then be accessible via \url{http://localhost:8080/MeganServer/}. To stop the server execute \texttt{stop.sh}. MeganServer needs to know where on the file system the RMA files can be found. Please read Section \ref{subsec:props} for configuration options.
 
 
 Alternatively use the graphical starter by executing \texttt{startGUI.sh} (see Figure \ref{fig:starter}).
@@ -126,18 +132,18 @@ Alternatively use the graphical starter by executing \texttt{startGUI.sh} (see F
   \centering
     \includegraphics[width=0.49\textwidth]{ServerStarter1.png}
     \includegraphics[width=0.49\textwidth]{ServerStarter2.png}
-    \caption{Graphical user interface to start MEGANServer. MEGANServer accessible under \url{http://localhost:8080/MyMeganServer/}}
+    \caption{Graphical user interface to start MeganServer. MeganServer accessible under \url{http://localhost:8080/MyMeganServer/}}
     \label{fig:starter}
 \end{figure}
 
 
 \subsection{Web Archive}
-\textbf{Prerequisites}: MEGANServer requires an installed JAVA runtime (at least version 7). Furthermore a servlet container such as Tomcat or Jetty must be installed.
+\textbf{Prerequisites}: MeganServer requires an installed JAVA runtime (at least version 8). Furthermore a servlet container such as Tomcat or Jetty must be installed.
 
-Download \texttt{MEGANServer\_webarchive.zip} from \url{http://ab.inf.uni-tuebingen.de/data/software/meganserver/download/MEGANServer\_webarchive.zip}. The archive includes:
+Download \texttt{MeganServer\_webarchive.zip} from \url{http://ab.inf.uni-tuebingen.de/data/software/MeganServer/download/MeganServer\_webarchive.zip}. The archive includes:
 
 \begin{itemize}
-\item \texttt{MEGANServer.war}: The web archive containing the application and configuration files
+\item \texttt{MeganServer.war}: The web archive containing the application and configuration files
 \item \textbf{manual.pdf}: This manual
 \end{itemize}
 
@@ -150,18 +156,18 @@ The application has to be launched inside a servlet engine such as Tomcat (see \
 \subsection{Find metagenomic datasets}
 \label{subsec:props}
 
-MEGAN operates on so called Read Match Archives (short RMA), a binary file format that incorporates reads, matches, metadata and classification data and is currently available in version 2 and 3. This file structure is also being used by MEGANServer in order to publish data via the web service. That is why MEGANServer must be started with a base directory which will then be recursively searched for RMA2 and RMA3 files.
-The base folder can be changed by modifying the entry \texttt{rma.rootFolder} in the \textit{MEGANServer.properties} file. MEGANServer will then find RMA files in this folder and all subfolders and expose those via the web service. This property can be set before starting the server or while running. For the latter option one must then reload the properties file by calling the method described in \ref{subsubsec:upProp}.
+MEGAN 6 operates on so called Read Match Archives (short RMA), a binary file format that incorporates reads, matches, metadata and classification data and is currently available in version 2, 3 and 6. This file structure is also being used by MeganServer in order to publish data via the web service. Furthermore, MeganServer can also operate and the meganized DAA files which are emitted by the aligner DIAMOND \cite{DIAMOND}. That is why MeganServer must be started with a base directory which will then be recursively searched for RMA2, 3, 6 and meganized DAA files.
+The base folder can be changed by modifying the entry \texttt{rma.rootFolder} in the \textit{MeganServer.properties} file. MeganServer will then find RMA files in this folder and all subfolders and expose those via the web service. This property can be set before starting the server or while running. For the latter option one must then reload the properties file by calling the method described in \ref{subsubsec:upProp}.
 
 
 \subsection{Where to store the log files}
 \textbf{Applicable only when using the webarchive version}
 
-MEGANServer creates by default a log file in the folder where the web application is launched. The location of this file can be changed by altering the property \texttt{log4j.appender.file.File} in the \textit{log4.properties} file. This operation requires a restart of the web application.
+MeganServer creates by default a log file in the folder where the web application is launched. The location of this file can be changed by altering the property \texttt{log4j.appender.file.File} in the \textit{log4.properties} file. This operation requires a restart of the web application.
 
 \subsection{Altering user credentials}
 
-The \textit{credentials.txt} file contains information about all users that are allowed to access a MEGANServer instance. Its entries can be changed either by editing the file (md5 hashed) or via web service using the commands as described in Section \ref{subsubsec:userInterface}.
+The \textit{credentials.txt} file contains information about all users that are allowed to access a MeganServer instance. Its entries can be changed either by editing the file (md5 hashed) or via web service using the commands as described in Section \ref{subsubsec:userInterface}.
 
 The default user with administrative permissions has the username/password \textit{admin}. It is advisable to change the password of this user before the first start of the server.
 
@@ -174,10 +180,10 @@ The \textit{info.txt} gives administrators the possibility to share information,
 
 \section{MEGAN}
 
-The metagenomics analysis tool MEGAN (\url{http://ab.inf.uni-tuebingen.de/software/megan5/}) comes with a graphical user interface to connect and exchange data with MEGANServer. With this connection one can work on remote datasets just as if they would be present on a local hard drive. Please read the MEGANServer section in the MEGAN manual for further information.
+The metagenomics analysis tool MEGAN 6 comes with a graphical user interface to connect and exchange data with MeganServer. With this connection one can work on remote datasets just as if they would be present on a local hard drive. Please read the MeganServer section in the MEGAN manual for further information.
 
 
-\section{MEGANServer REST API}
+\section{MeganServer REST API}
 \subsection{Parameter}
 
 The API uses queries to retrieve data. The selection of data is performed by methods and parameters. Since some parameters are recurring in multiple methods we will introduce in this section the parameters and in the next section the methods.
@@ -185,12 +191,12 @@ The API uses queries to retrieve data. The selection of data is performed by met
 
 \subsubsection{Identifier}
 
-MEGANServer accesses datasets and data inside datasets with unique identifier. There are three types of identifier.
+MeganServer accesses datasets and data inside datasets with unique identifier. There are three types of identifier.
 
 \paragraph{Dataset/File Identifier}
 \label{subsec:fileid}
 
-The dataset/file identifier uniquely identifies a single dataset on a MEGANServer instance. The parameter on the API is \texttt{fileId} and is either a number such as \textbf{217396908} or the path to the dataset on the server such as \textbf{core1\_activelayer\_day2.rma}
+The dataset/file identifier uniquely identifies a single dataset on a MeganServer instance. The parameter on the API is \texttt{fileId} and is either a number such as \textbf{1242324557} or the path to the dataset on the server such as \textbf{Permafrost/core2\_activelayer\_day2.rma6}
 
 \paragraph{Read Identifier}
 \label{subsec:readuid}
@@ -213,7 +219,7 @@ When requesting reads or matches one can select which data fields should be retu
 
 \texttt{useRead, useReadName, useReadHeader, useReadSequence, useMateUId, useReadLength, useReadComplexity, useReadNumberOfMatches, useMatchText, useMatchIgnore, useMatchBitScore, useMatchLength, useMatchTaxonId, useMatchSeedId, useMatchKeggId, useMatchCogId, useMatchExpected, useMatchRefSeq}
 
-Therefore the parameter \texttt{dataSelection="useReadName,useReadLength"} would tell MEGANServer to return only the read name and the read length for a given query. If this parameter is skipped MEGANServer will use the default value which returns all possible data fields.
+Therefore the parameter \texttt{dataSelection="useReadName,useReadLength"} would tell MeganServer to return only the read name and the read length for a given query. If this parameter is skipped MeganServer will use the default value which returns all possible data fields.
 
 
 
@@ -222,7 +228,7 @@ Therefore the parameter \texttt{dataSelection="useReadName,useReadLength"} would
 
 \paragraph{FindSelection and regEx}
 \label{subsec:findsel}
-MEGANServer supports searching for data matching regular expressions inside datasets. One has to specify where to search (FindSelection) and what to search for (regEx).
+MeganServer supports searching for data matching regular expressions inside datasets. One has to specify where to search (FindSelection) and what to search for (regEx).
 
 The FindSelection currently supports four data fields that can be searched:
 
@@ -253,15 +259,15 @@ These both parameters are meant to give users the possibility to filter matches 
 
 \begin{itemize}
 	\item \textbf{Name}: help
-	\item \textbf{Outline}: Get a list of all accessible commands of MEGANServer
+	\item \textbf{Outline}: Get a list of all accessible commands of MeganServer
 	\item \textbf{Parameters}
 		\begin{itemize}
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/}
-			\item \url{http://megan-db.org/Permafrost/help}
+			\item \url{http://megan-db.org/Public/}
+			\item \url{http://megan-db.org/Public/help}
 		\end{itemize}
 \end{itemize}
 
@@ -269,14 +275,14 @@ These both parameters are meant to give users the possibility to filter matches 
 
 \begin{itemize}
 	\item \textbf{Name}: info
-	\item \textbf{Outline}: Get information about the data stored on this MEGANServer instance
+	\item \textbf{Outline}: Get information about the data stored on this MeganServer instance
 	\item \textbf{Parameters}
 		\begin{itemize}
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/info}
+			\item \url{http://megan-db.org/Public/info}
 		\end{itemize}
 \end{itemize}
 
@@ -284,14 +290,14 @@ These both parameters are meant to give users the possibility to filter matches 
 
 \begin{itemize}
 	\item \textbf{Name}: about
-	\item \textbf{Outline}: Get a version number, contact information and build date of MEGANServer
+	\item \textbf{Outline}: Get a version number, contact information and build date of MeganServer
 	\item \textbf{Parameters}
 		\begin{itemize}
 			\item No Parameters
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/About}
+			\item \url{http://megan-db.org/Public/About}
 		\end{itemize}
 \end{itemize}
 
@@ -300,7 +306,7 @@ These both parameters are meant to give users the possibility to filter matches 
 \subsubsection{listDatasets}
 \begin{itemize}
 	\item \textbf{Name}: listDatasets
-	\item \textbf{Outline}: Retrieve a list of datasets that is known to the MEGANServer instance.
+	\item \textbf{Outline}: Retrieve a list of datasets that is known to the MeganServer instance.
 	\item \textbf{Parameters}
 		\begin{itemize}
 			\item \textbf{includeMetadata}
@@ -313,8 +319,8 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/listDatasets}
-			\item \url{http://megan-db.org/Permafrost/listDatasets?includeMetadata=True}
+			\item \url{http://megan-db.org/Public/listDatasets}
+			\item \url{http://megan-db.org/Public/listDatasets?includeMetadata=True}
 		\end{itemize}
 \end{itemize}
 
@@ -335,8 +341,8 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getFileUid?fileId=core1_activelayer_day2.rma}
-			\item \url{http://megan-db.org/Permafrost/getFileUid?fileId=217396908}
+			\item \url{http://megan-db.org/Public/getFileUid?fileId=Permafrost/core2_activelayer_day2.rma6}
+			\item \url{http://megan-db.org/Public/getFileUid?fileId=1242324557}
 		\end{itemize}
 \end{itemize}
 
@@ -357,7 +363,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getAuxiliary?fileId=core1_activelayer_day2.rma}
+			\item \url{http://megan-db.org/Public/getAuxiliary?fileId=Permafrost/core2_activelayer_day2.rma6}
 		\end{itemize}
 \end{itemize}
 
@@ -406,9 +412,9 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=331}
-			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=643&minScore=10}
-			\item \url{http://megan-db.org/Permafrost/getRead?fileId=217396908&readUid=643&minScore=10&maxExpected=0.01&dataSelection="useReadName,useReadLength"}
+			\item \url{http://megan-db.org/Public/getRead?fileId=1958397319&readUid=7679}
+			\item \url{http://megan-db.org/Public/getRead?fileId=1958397319&readUid=7679&minScore=10}
+			\item \url{http://megan-db.org/Public/getRead?fileId=1958397319&readUid=7679&minScore=10&maxExpected=0.01&dataSelection="useReadName,useReadLength"}
 		\end{itemize}
 \end{itemize}
 
@@ -456,7 +462,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getAllReadsIterator?fileId=core1_activelayer_day2.rma}
+			\item \url{http://megan-db.org/Public/getAllReadsIterator?fileId=1958397319}
 		\end{itemize}
 \end{itemize}
 
@@ -511,7 +517,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getReadsIterator?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classId=14}
+			\item \url{http://megan-db.org/Public/getReadsIterator?fileId=1958397319&classification=Taxonomy&classId=1}
 		\end{itemize}
 \end{itemize}
 
@@ -532,7 +538,7 @@ These both parameters are meant to give users the possibility to filter matches 
 				\end{itemize}
 			\item \textbf{classId}
 				\begin{itemize}
-					\item \textbf{Name}: classId (see \ref{subsec:class})s
+					\item \textbf{Name}: classId (see \ref{subsec:class})
 					\item \textbf{Outline}: The ids of a classification such as NCBI taxonomy, KEGG or SEED
 					\item \textbf{Required} : true
 					\item \textbf{Default Value} : --
@@ -568,7 +574,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getReadsForMultipleClassIds?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classIds=14,-1}
+			\item \url{http://megan-db.org/Public/getReadsForMultipleClassIds?fileId=1958397319&classification=Taxonomy&classIds=1,2}
 		\end{itemize}
 \end{itemize}
 \subsubsection{getFindAllReadsIterator}
@@ -604,7 +610,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getFindAllReadsIterator?fileId=core1_activelayer_day2.rma&regEx=Bacteria&findSelection=useMatchText}
+			\item \url{http://megan-db.org/Public/getFindAllReadsIterator?fileId=1958397319&regEx=Bacteria&findSelection=useMatchText}
 		\end{itemize}
 \end{itemize}
 
@@ -626,7 +632,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}: \textcolor{red}{Pages and pageIds are dynamic. This is why the link in the example will not work. Try to insert your own pageId.}
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/loadPagedReads?pageId=823880593}
+			\item \url{http://megan-db.org/Public/loadPagedReads?pageId=823880593}
 		\end{itemize}
 \end{itemize}
 
@@ -648,7 +654,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getNumberOfReads?fileId=217396908}
+			\item \url{http://megan-db.org/Public/getNumberOfReads?fileId=1958397319}
 		\end{itemize}
 \end{itemize}
 
@@ -670,7 +676,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getNumberOfMatches?fileId=217396908}
+			\item \url{http://megan-db.org/Public/getNumberOfMatches?fileId=1958397319}
 		\end{itemize}
 \end{itemize}
 
@@ -691,7 +697,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getAllClassificationNames?fileId=core1_activelayer_day2.rma}
+			\item \url{http://megan-db.org/Public/getAllClassificationNames?fileId=1958397319}
 		\end{itemize}
 \end{itemize}
 \subsubsection{getClassSize}
@@ -724,7 +730,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getClassSize?fileId=core1_activelayer_day2.rma&classification=Taxonomy&classId=14}
+			\item \url{http://megan-db.org/Public/getClassSize?fileId=1958397319&classification=Taxonomy&classId=1}
 		\end{itemize}
 \end{itemize}
 
@@ -752,7 +758,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getClassificationBlock?fileId=core1_activelayer_day2.rma&classification=Taxonomy}
+			\item \url{http://megan-db.org/Public/getClassificationBlock?fileId=1958397319&classification=Taxonomy}
 		\end{itemize}
 \end{itemize}
 
@@ -773,7 +779,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/isReadOnly?fileId=core1_activelayer_day2.rma}
+			\item \url{http://megan-db.org/Public/isReadOnly?fileId=1958397319}
 		\end{itemize}
 \end{itemize}
 
@@ -800,7 +806,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/getClassificationSize?fileId=core1_activelayer_day2.rma&classification=Taxonomy}
+			\item \url{http://megan-db.org/Public/getClassificationSize?fileId=1958397319&classification=Taxonomy}
 		\end{itemize}
 \end{itemize}
 
@@ -810,14 +816,14 @@ These both parameters are meant to give users the possibility to filter matches 
 \label{subsubsec:upProp}
 \begin{itemize}
 	\item \textbf{Name}: admin/updateDatasets
-	\item \textbf{Outline}: Reads the root location from the \textit{MEGANServer.properties} file and updates the list of datasets
+	\item \textbf{Outline}: Reads the root location from the \textit{MeganServer.properties} file and updates the list of datasets
 	\item \textbf{Parameters}
 		\begin{itemize}
 			\item  None
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/admin/updateDatasets}
+			\item \url{http://megan-db.org/Public/admin/updateDatasets}
 		\end{itemize}
 \end{itemize}
 
@@ -854,7 +860,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/admin/addUser?userName=Megan&password=Server&isAdmin=false}
+			\item \url{http://megan-db.org/Public/admin/addUser?userName=Megan&password=Server&isAdmin=false}
 		\end{itemize}
 \end{itemize}
 
@@ -869,7 +875,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/admin/listUsers}
+			\item \url{http://megan-db.org/Public/admin/listUsers}
 		\end{itemize}
 \end{itemize}
 \subsubsection{admin/removeUser}
@@ -888,7 +894,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/admin/removeUser?userName=Megan}
+			\item \url{http://megan-db.org/Public/admin/removeUser?userName=Megan}
 		\end{itemize}
 \end{itemize}
 \subsubsection{admin/getLog}
@@ -902,7 +908,7 @@ These both parameters are meant to give users the possibility to filter matches 
 		\end{itemize}
 	\item \textbf{Examples}:
 		\begin{itemize}
-			\item \url{http://megan-db.org/Permafrost/admin/getLog}
+			\item \url{http://megan-db.org/Public/admin/getLog}
 		\end{itemize}
 \end{itemize}
 
@@ -910,26 +916,8 @@ These both parameters are meant to give users the possibility to filter matches 
 
 This research is supported by the German Federal Ministry of Education and Research.
 
-\bibliographystyle{natbib}
-\begin{thebibliography}{}
-
-
-\bibitem[Huson {\em et~al.}(2011)Huson, Mitra, Weber, Ruscheweyh, and
-  Schuster]{MEGAN2011}
-Huson, D.~H., Mitra, S., Weber, N., Ruscheweyh, H.-J., and Schuster, S.~C.
-  (2011).
-\newblock Integrative analysis of environmental sequences using {MEGAN\,4}.
-\newblock {\em Genome Research\/}, {\bf 21}, 1552--1560.
-
-\bibitem[Mackelprang {\em et~al.}(2011)Mackelprang, Waldrop, DeAngelis, David,
-  Chavarria, Blazewicz, Rubin, and Jansson]{Mackelprang2011}
-Mackelprang, R., Waldrop, M., DeAngelis, K., David, M., Chavarria, K.,
-  Blazewicz, S., Rubin, E., and Jansson, J. (2011).
-\newblock Metagenomic analysis of a permafrost microbial community reveals a
-  rapid response to thaw.
-\newblock {\em Nature\/}, {\bf 480}(7377), 368--371.
-
-\end{thebibliography}
+\bibliographystyle{plain}
+\bibliography{compbio-2012.bib}
 
 
 \end{document}

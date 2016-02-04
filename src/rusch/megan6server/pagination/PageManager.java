@@ -69,7 +69,7 @@ public class PageManager {
 	 * 
 	 */
 	private synchronized void removeInactivePaginators(){
-		logger.info("Starting the timertask to remove inactive paginators.");
+		logger.debug("Starting the timertask to remove inactive paginators.");
 		List<String> pages2remove = new ArrayList<String>();
 		for(Entry<String, ReadBlockPaginator> entry : pageCode2Paginators.entrySet()){
 			if(!entry.getValue().isActive()){

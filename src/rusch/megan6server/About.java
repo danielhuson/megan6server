@@ -37,9 +37,9 @@ public class About {
 		this.applicationName = "MeganServer";
 		this.author = "Hans-Joachim Ruscheweyh";
 		this.contact = "hans-joachim.ruscheweyh@id.ethz.ch";
-		this.version = "1.0.0";
+		this.version = "1.0.1";
 		this.description = "A web resource for MEGAN datasets providing secure access to your sequencing data.";
-		this.versionDate = "2015-12-18";
+		this.versionDate = "2016-06-21";
 	}
 
 	public String getVersionDate() {

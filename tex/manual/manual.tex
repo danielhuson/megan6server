@@ -46,7 +46,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\author{Hans-Joachim Ruscheweyh}
+\author{Hans-Joachim Ruscheweyh \\ \href{mailto:hans-joachim.ruscheweyh@id.ethz.ch}{hans-joachim.ruscheweyh@id.ethz.ch} }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \makeindex
@@ -70,25 +70,29 @@
 \section{Introduction}
 
 
-MeganServer is a companion tool to MEGAN 6 \cite{MEGAN6} and allows researchers to outsource the storage of often very large metagenomic datasets to a dedicated server. For data transfer and accessibility we provide a RESTful API based on JSON. Furthermore, we extended MEGAN in that way that remote datasets can be accessed within MEGAN as simple as if they would be stored locally.
+MeganServer is a companion tool to MEGAN6 \cite{MEGAN6}. It allows researchers to outsource the storage of often very large metagenomic datasets to a dedicated server. The datasets remain available via a secured network connection and can be accessed in MEGAN6 as if they would be local files. For the purpose of communication with MEGAN6 MeganServer provides a RESTful API based on JSON.
 
-We operate a public instance of MeganServer at  \url{http://megan-db.org/Public/}  in T\"ubingen, Germany. 
-This instance provides access to MEGAN files containing the complete taxonomic and functional analysis of a number of published metagenome samples.
+For testing we operate an instance of MeganServer at  \url{http://megan-db.org/Public/} (username/password=guest) at the Center for Bioinformatics in T\"ubingen, Germany. 
+This instance provides access to MEGAN files containing the complete taxonomic and functional analysis of 130 published metagenome samples.
 Under ``Asari''  we list 12 human gut samples from a recent study on antibiotic selection pressure \cite{WillmannASARI2015}, labeled ``Alice'' and ``Bob''.
 This dataset consists of 612 million aligned reads (out of 830 million reads) and nearly 10 billion alignments, requiring 229\,GB to host.
 Under ``Daisy'',  we list four human gut samples published in \cite{Voigt2015}. These datasets contain a total of 6.6 million aligned reads, requiring 6\,GB to host.
-Under ``Permafrost''', we list 12 permafrost soil samples published in \cite{Mackelprang2011}.
-These datasets  contains 52 million aligned reads (out of 250 million reads), requiring 38\,GB to host.
+Under ``Permafrost''', we list 12 permafrost soil samples published in \cite{Mackelprang2011}. These datasets  contains 52 million aligned reads (out of 250 million reads) and 750 million alignments, requiring 38\,GB to host. Under ``LouisEtAl2016'', we list 92 human gut microbiota samples published in \cite{LouisEtAl2016}. These datasets contain 1.4 billion reads and  22 billion alignments, and require  600\,GB to host.
 
+
+\section{Help with MeganServer}
+
+Please do not hesitate to contact \href{mailto:hans-joachim.ruscheweyh@id.ethz.ch}{hans-joachim.ruscheweyh@id.ethz.ch} or post a question on the MEGAN wiki page (\url{http://megan.informatik.uni-tuebingen.de/}) if there is any problem with installation or usage of MeganServer.
 
 \section{Installation}
 
-MeganServer is distributed in two different variants. Both version provide the same functionality but differ in how they are installed:
+MeganServer requires to be launched inside of a Java servlet engine. For that purpose we distribute three variants of MeganServer. The \textbf{Standalone} variant includes the Java servlet engine and can be launched in terminal or via a graphical user interface. The \textbf{Web Archive} variant contains the raw war file and requires to be copied to a servlet engine. Finally, the \textbf{Source} distribution allows one to additionally build the application from the source provided at github:
 
 \begin{itemize}
-\item \textbf{Standalone}: With the standalone version of MeganServer we target users who would like to test the application locally. Besides the MeganServer program this bundle also ships with a small application and web server (Jetty) and a script to start/stop MeganServer out of the box.
+\item \textbf{Standalone}: The standalone version of MeganServer targets users who would like to test the application locally. Besides the MeganServer program this bundle also ships with an Java servlet engine (Jetty) and scripts to start and stop MeganServer out of the box.
 \item \textbf{Web Archive}: With this version we target users who would like to integrate MeganServer in an existing web server/servlet engine environment such as Tomcat or Jetty.
-\end{itemize}
+\item \textbf{Source}: The source code of MeganServer is publicly released under the GPL3 license on GitHub \url{https://github.com/danielhuson/megan6server}
+\end{itemize} 
 
 \subsection{Standalone}
 \textbf{Prerequisites}: MeganServer requires an installed JAVA runtime, version 8.
@@ -97,13 +101,16 @@ Download \texttt{MeganServer\_standalone.zip} from \url{http://ab.inf.uni-tuebin
 
 \begin{itemize}
 
-\item \textbf{bin} folder with scripts to start and stop MeganServer
+\item \textbf{bin} Folder with scripts to start and stop MeganServer
 	\begin{itemize}
-		\item \textbf{\texttt{start.sh}}: Script to start MeganServer in Linux and OS X
-		\item \textbf{\texttt{startGUI.sh}}: Script to start MeganServer with a graphical user interface in Linux and OS X
-		\item \textbf{\texttt{stop.sh}}: Script to stop MeganServer in Linux and OS X
+		\item \textbf{\texttt{start.sh}}: Script to start MeganServer on Linux and OS X
+		\item \textbf{\texttt{start.bat}}: Script to start MeganServer on Windows
+		%\item \textbf{\texttt{startGUI.sh}}: Script to start MeganServer with a graphical user interface on Linux and OS X
+		%\item \textbf{\texttt{startGUI.bat}}: Script to start MeganServer with a graphical user interface on Windows
+		\item \textbf{\texttt{stop.sh}}: Script to stop MeganServer on Linux and OS X
+		\item \textbf{\texttt{stop.bat}}: Script to stop MeganServer on Windows
 	\end{itemize}
-\item \textbf{lib} folder with libraries
+\item \textbf{lib} Folder with program libraries
 	\begin{itemize}
 		\item \textbf{\texttt{MeganServer.war}}: The MeganServer application
 		\item \textbf{\texttt{ServerStarter.jar}}: The graphical user interface to start MeganServer
@@ -112,29 +119,55 @@ Download \texttt{MeganServer\_standalone.zip} from \url{http://ab.inf.uni-tuebin
 		\item \textbf{\texttt{start.jar}}: An additional library
 		\item \textbf{\texttt{TableLayout.jar}}: An additional library
 	\end{itemize}
-\item \textbf{properties} folder with configuration files. See Section \ref{sec:config}
+\item \textbf{properties} Folder with configuration files. See Section \ref{sec:config}
 	\begin{itemize}
 	\item \textbf{\texttt{credentials.txt}}
 	\item \textbf{\texttt{log4j.properties}}
 	\item \textbf{\texttt{MeganServer.properties}}
 	\item \textbf{\texttt{info.txt}}
 	\end{itemize}
-\item \textbf{log} folder where the application's log files are stored
+\item \textbf{log} Folder where the application's log files are stored
 \item \textbf{manual.pdf}: This manual
 \end{itemize}
 
-The application can be started with the \texttt{start.sh} command. The server will then be accessible via \url{http://localhost:8080/MeganServer/}. To stop the server execute \texttt{stop.sh}. MeganServer needs to know where on the file system the RMA files can be found. Please read Section \ref{subsec:props} for configuration options.
+The application can be started with the \texttt{start.(sh|bat)} command (for full list of command line options see below). The server will then be accessible via \url{http://localhost:8080/MeganServer/}. To stop the server execute \texttt{stop.(sh|bat)}. MeganServer needs to know where on the file system the RMA files can be found. Please read Section \ref{subsec:props} for configuration options. 
+
+\subsubsection{start.(sh|bat)}
 
 
-Alternatively use the graphical starter by executing \texttt{startGUI.sh} (see Figure \ref{fig:starter}).
-\begin{figure}[h!]
+\begin{description}
+\item[-{}-name:] Define name of MeganServer instance. Default=Meganserver
+\item[-{}-port:] Port on which MeganServer will be launched. Default=8080
+\item[-{}-stop-port:] Port to stop MeganServer. Default=8181
+\item[-{}-stop-key:] Stop key. Default=7ce31e4eb617c85efbff9450bf9c2fd2
+\item[-{}-max-memory:] Max memory for MeganServer. Default=4G
+\item[-{}-help:] Shows this help
+\end{description}
 
-  \centering
-    \includegraphics[width=0.49\textwidth]{ServerStarter1.png}
-    \includegraphics[width=0.49\textwidth]{ServerStarter2.png}
-    \caption{Graphical user interface to start MeganServer. MeganServer accessible under \url{http://localhost:8080/MyMeganServer/}}
-    \label{fig:starter}
-\end{figure}
+Example:
+'\texttt{./start.sh -{}-name MyMeganServer -{}-port 1234}' will launch MeganServer on \url{http://www.localhost:1234/MyMeganServer}
+
+\subsubsection{stop.(sh|bat)}
+
+
+\begin{description}
+\item[-{}-stop-port:] Port to stop MeganServer. Default=8181
+\item[-{}-stop-key:] Stop key. Default=7ce31e4eb617c85efbff9450bf9c2fd2
+\item[-{}-help:] Shows this help
+\end{description}
+Example:
+'\texttt{./stop.sh -{}-stop-port 1235 -{}-stop-key RandomStopKey}' will stop MeganServer which has been started with stop port 1235 and stop key RandomStopKey
+
+%\subsubsection{startGUI.(sh|bat)}
+%Alternatively use the graphical starter by executing \texttt{startGUI.(sh|bat)} (see Figure \ref{fig:starter}).
+%\begin{figure}[h!]
+
+%  \centering
+ %   \includegraphics[width=0.49\textwidth]{ServerStarter1.png}
+ %   \includegraphics[width=0.49\textwidth]{ServerStarter2.png}
+ %   \caption{Graphical user interface to start MeganServer. MeganServer accessible under \url{http://localhost:8080/MyMeganServer/}}
+ %   \label{fig:starter}
+%\end{figure}
 
 
 \subsection{Web Archive}
@@ -153,23 +186,28 @@ The application has to be launched inside a servlet engine such as Tomcat (see \
 \section{Configuration}
 \label{sec:config}
 
-\subsection{Find metagenomic datasets}
+\subsection{Metagenomic Data Storage}
 \label{subsec:props}
 
-MEGAN 6 operates on so called Read Match Archives (short RMA), a binary file format that incorporates reads, matches, metadata and classification data and is currently available in version 2, 3 and 6. This file structure is also being used by MeganServer in order to publish data via the web service. Furthermore, MeganServer can also operate and the meganized DAA files which are emitted by the aligner DIAMOND \cite{DIAMOND}. That is why MeganServer must be started with a base directory which will then be recursively searched for RMA2, 3, 6 and meganized DAA files.
-The base folder can be changed by modifying the entry \texttt{rma.rootFolder} in the \textit{MeganServer.properties} file. MeganServer will then find RMA files in this folder and all subfolders and expose those via the web service. This property can be set before starting the server or while running. For the latter option one must then reload the properties file by calling the method described in \ref{subsubsec:upProp}.
+MEGAN6 operates on so called Read Match Archives (short RMA), a binary file format that incorporates reads, matches, metadata and classification data and is currently available in version 2, 3 and 6. This file structure is also being used by MeganServer in order to publish data via the web service. Furthermore, MeganServer can also operate on so-called \textit{meganized} DAA files. DAA files are emitted by the aligner DIAMOND \cite{DIAMOND}. MEGAN6 is distributed with the tool to then meganize these datasets \url{http://ab.inf.uni-tuebingen.de/data/software/megan6/download/welcome.html}. 
+
+All data files (RMA v2, v3, v6 and meganized DAA files) must be located in a base folder that is accessible by MeganServer. MeganServer will then recursively screen this folder searching for suitable data files. The base folder can be changed by modifying the entry \texttt{rma.rootFolder} in the \textit{meganserver.properties} file. MeganServer will then find RMA files in this folder and all subfolders and expose those via the web service. This property can be set before starting the server or while running. For the latter option one must then reload the properties file by calling the method described in \ref{subsubsec:upProp}.
 
 
-\subsection{Where to store the log files}
+\subsection{Log Files}
 \textbf{Applicable only when using the webarchive version}
 
-MeganServer creates by default a log file in the folder where the web application is launched. The location of this file can be changed by altering the property \texttt{log4j.appender.file.File} in the \textit{log4.properties} file. This operation requires a restart of the web application.
+By default MeganServer creates a log file in the folder where the web application is launched. The location of this file can be changed by altering the property \texttt{log4j.appender.file.File} in the \textit{log4.properties} file. This operation requires a restart of the web application (or the servlet engine)
 
-\subsection{Altering user credentials}
+\subsection{User credentials}
 
 The \textit{credentials.txt} file contains information about all users that are allowed to access a MeganServer instance. Its entries can be changed either by editing the file (md5 hashed) or via web service using the commands as described in Section \ref{subsubsec:userInterface}.
 
 The default user with administrative permissions has the username/password \textit{admin}. It is advisable to change the password of this user before the first start of the server.
+
+Adding a new user \textit{guest} with the password \textit{guest} and user permissions one needs to add this line to the credentils file:
+
+\texttt{guest	084e0343a0486ff05530df6c705c8bb4	true	false}
 
 
 
@@ -180,18 +218,34 @@ The \textit{info.txt} gives administrators the possibility to share information,
 
 \section{MEGAN}
 
-The metagenomics analysis tool MEGAN 6 comes with a graphical user interface to connect and exchange data with MeganServer. With this connection one can work on remote datasets just as if they would be present on a local hard drive. Please read the MeganServer section in the MEGAN manual for further information.
+The metagenomics analysis tool MEGAN6 comes with a graphical user interface to connect and exchange data with MeganServer. With this connection one can work on remote datasets just as if they would be present on a local hard drive. The connection can be established via the graphical user interface of MEGAN as shown in Figure \ref{fig:megan}
+
+\begin{figure}[h!]
+
+  \centering
+    \includegraphics[width=0.9\textwidth]{meganConnectMeganServer.pdf}
+    \caption{MEGAN6 has inbuilt capabilities to connect and communicate with MeganServer. MeganServer is implemented in that way that users can take advantage of the full set of functions that MEGAN6 offers without the need to have large data files physically present. MEGAN6 provides a graphical user interface to connect to one or multiple MeganServer instances at a time. Once connected users can browse through remotely hosted datasets that are organized in a tree-like structure. One or multiple datasets can then be opened in MEGAN6 and their content can be explored in the same way as if data files would be physically present.}
+      \label{fig:megan}
+\end{figure}
 
 
-\section{MeganServer REST API}
+
+
+Please read the MeganServer section in the MEGAN manual for further information \url{http://ab.inf.uni-tuebingen.de/data/software/megan6/download/welcome.html}.
+
+
+\section{MeganServer RESTful API}
+
+MeganServer uses a JSON based RESTful API to broadcast its services as well as transfer data. MEGAN6 is fully capable to communicate with MeganServer via this API. However, the API can be used even without MEGAN6 using, for example, a simple web browser. This section describes all API commands in detail.
+
 \subsection{Parameter}
 
-The API uses queries to retrieve data. The selection of data is performed by methods and parameters. Since some parameters are recurring in multiple methods we will introduce in this section the parameters and in the next section the methods.
+The API uses queries to retrieve data. The selection of data is performed by methods and parameters. Since some parameters are recurring in multiple methods we will introduce these parameters in this section and in the next section the methods.
 
 
 \subsubsection{Identifier}
 
-MeganServer accesses datasets and data inside datasets with unique identifier. There are three types of identifier.
+MeganServer accesses datasets and data inside datasets with unique identifiers. MeganServer knows three types of identifier.
 
 \paragraph{Dataset/File Identifier}
 \label{subsec:fileid}
@@ -917,7 +971,7 @@ These both parameters are meant to give users the possibility to filter matches 
 This research is supported by the German Federal Ministry of Education and Research.
 
 \bibliographystyle{plain}
-\bibliography{compbio-2012.bib}
+\bibliography{manual.bib}
 
 
 \end{document}

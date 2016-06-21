@@ -34,7 +34,6 @@ import org.apache.log4j.spi.LoggingEvent;
  *
  */
 public class StringLogger extends AppenderSkeleton{
-
 	public static final List<String> logEntries = new ArrayList<String>();
 	public static final SimpleDateFormat logDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
 
@@ -61,7 +60,6 @@ public class StringLogger extends AppenderSkeleton{
 				logEvent.append(Layout.LINE_SEP);
 			}
 		}
-
 		logEntries.add(logEvent.toString());
 	}
 

@@ -18,13 +18,13 @@
  */
 package rusch.megan6server.pagination;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import megan.data.IReadBlockIterator;
 import rusch.megan5client.ReadBlockServer;
 import rusch.megan5client.connector.ReadBlockPage;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**A paginator that retrieves pages from an readblockiterator
@@ -79,7 +79,7 @@ public class ReadBlockPaginator {
 			return new ReadBlockPage();
 		}else{
 			List<ReadBlockServer> rbs = new ArrayList<ReadBlockServer>();
-			String code = String.valueOf((String.valueOf(Math.abs((rbs.hashCode() + System.currentTimeMillis() + "MySaltIsMyNameMEGANServer").hashCode()))));
+            String code = String.valueOf(Math.abs((rbs.hashCode() + System.currentTimeMillis() + "MySaltIsMyNameMEGANServer").hashCode()));
 			int pos = 0;
 			while(iterator.hasNext()){
 				pos++;
